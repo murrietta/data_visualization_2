@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<h1>Project: </h1>
+	<h2>{{ project.name }}</h2>
+  <div id="sketch-holder">
+	<title>p5.js sketch</title>
+  	<script type="text/javascript" src="{{ url_for('static', filename='js/lib/p5.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='hw07/pin.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='hw07/marble.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='hw07/board.js') }}"></script>
+  	<script type="text/javascript" src="{{ url_for('static', filename='hw07/sketch.js') }}"></script>
+  </div>
+  <script type="text/javascript">
+    function updateTextInput(val) {
+          document.getElementById('textInput').value=val; 
+        }
+    function updateSlider(val) {
+          document.getElementById("prob").value=val;
+    }
+  </script>
+	<p>{{ project.description }}</p>
+  <p>Probability of going right at a pin:</p>
+  <input type="range" min="1" max="100" step="1" value="50" id="prob" onchange="updateTextInput(this.value);">
+</br>
+  Value: <input type="text" id="textInput" value="50" style="width: 20px;" onchange="updateSlider(this.value);">
+</br>
+  <p>Number of rows of pins:</p>
+  <select id="num_rows">
+  <option value="5">5</option>
+  <option value="10">10</option>
+  <option value="20">20</option>
+  </select>
+</br>
+  <p>Number of marbles:</p>
+  <select id="num_marbles">
+  <option value="25">25</option>
+  <option value="50">50</option>
+  <option value="100">100</option>
+  <option value="200">200</option>
+  </select>
+</br>
+  <p>Reset Sketch with Current Parameters</p>
+  <button onclick="reset()">RESET</button>
+{% endblock %}

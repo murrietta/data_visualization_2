@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<h1>Project: </h1>
+	<h2>{{ project.name }}</h2>
+    <div id="sketch-holder">
+		<title>p5.js sketch</title>
+    	<script type="text/javascript" src="{{ url_for('static', filename='js/lib/p5.js') }}"></script>
+      	<script type="text/javascript" src="{{ url_for('static', filename='hw06/hw06_bird.js') }}"></script>
+      	<script type="text/javascript" src="{{ url_for('static', filename='hw06/scene.js') }}"></script>
+      	<script type="text/javascript" src="{{ url_for('static', filename='hw06/platform.js') }}"></script>
+    	<script type="text/javascript" src="{{ url_for('static', filename='hw06/hw06_sketch.js') }}"></script>
+    </div>
+	<p>{{ project.description }}</p>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Projects</h1>
+    <h3>Browse the completed projects below!</h3>
+  <table>
+      {% for project in projects %}
+      {% if loop.index0 % 2 == 0 %}
+      <tr>
+      {% endif %}
+          <td><a href="{{ project.link }}"><h3>{{ project.name }}:</h3></a> <p>{{ project.body }}</p></td>
+      {% if loop.index0 % 2 == 1 or loop.last %}
+      </tr>
+      {% endif %}
+      {% endfor %}
+  </table>
+{% endblock %}

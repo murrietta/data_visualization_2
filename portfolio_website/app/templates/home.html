@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Welcome Home</h1>
+    <p left-margin="100px">This is the home page. I don't hve anything better to do than show my projects here even though that is also shown on the index. Enjoy!</p>
+    <table>
+    	<tr>
+	    {% for project in projects %}
+	    <td><a href="{{ project.link }}"><h3>{{ project.project.name }}:</h3></a> <p>{{ project.body }}</p></td>
+	    {% endfor %}
+		</tr>
+	</table>
+{% endblock %}

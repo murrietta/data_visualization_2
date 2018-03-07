@@ -1,0 +1,6 @@
+name1: ASCII Art Primer
+body: This was all about making art using ASCII characters. It is something I've seen before but never tried. It was definitely fun to do!
+link: /project02
+name: ASCII Art Robin Williams
+img_src: ['/static/img/rw.jpg', '/static/img/project02.png']
+description: This was a hybrid project, I did some of it in python and some of it in C++. I needed to access the pixels of the image and that is really easy in Python (and not so easy to do in C++).

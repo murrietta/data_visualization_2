@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Projects</h1>
+    <h3>Browse the completed projects below!</h3>
+<!--     <table>
+    	<tr>
+	    {% for project in projects %}
+	    <td><a href="{{ project.link }}"><h3>{{ project.project.name }}:</h3></a> <p>{{ project.body }}</p></td>
+	    {% endfor %}
+		</tr>
+	</table> -->
+
+	<table>
+		{% for row in projects|batch(2, '&nbsp;') %}
+			<tr>
+			{% for project in row %}
+				<td><a href="{{ project.link }}"><h3>{{ project.name }}:</h3></a> <p>{{ project.body }}</p></td>
+			{% endfor %}
+			</tr>
+		{% endfor %}
+	</table>
+{% endblock %}

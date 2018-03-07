@@ -1,0 +1,5 @@
+name1: Parameterized Plinko Board
+body: An Interactive Visualization with p5.js
+link: /project07
+name: Parameterized Plinko Board
+description: A simple Plinko board using p5.js. Parameters allow the user to adjust the probability of going right at each pin, how many rows of pins, and how many marbles to use.

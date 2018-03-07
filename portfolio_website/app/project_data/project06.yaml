@@ -1,0 +1,5 @@
+name1: Simple Visualization with p5.js
+body: Just needed to pick something and run with it in p5.js!
+link: /project06
+name: Simple visualization with p5.js
+description: This is a simple visualization utilizing p5.js and javascript in general. Having a little trouble loading images in p5.js while serving with flask!
