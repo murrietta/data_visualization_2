@@ -1,0 +1,21 @@
+/*body {
+	background-color: #aaaaaa;
+}*/
+g {
+	background-color: #aaaaaa;
+}
+.legend {
+	font-size: 11px;
+	font-family: arial;
+}
+.legend2 {
+	font-size: 12px;
+	font-family: arial;
+	stroke: #445544;
+}
+rect {
+	stroke-width: 2;
+}
+circle {
+	stroke-width: 2;
+}

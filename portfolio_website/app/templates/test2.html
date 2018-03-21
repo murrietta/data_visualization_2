@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<h1>Project: </h1>
+	<h2>{{ project.name }}</h2>
+	<div id="sketch-holder">
+	<title>d3 sketch</title>
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/test_style.css') }}">
+		<script type="text/javascript" src="{{ url_for('static', filename='js/lib/d3.v3.min.js') }}"></script>
+		<script type="text/javascript" src="{{ url_for('static', filename='hw08/test.js') }}"></script>
+	</div>
+	<p>{{ project.description }}</p>
+{% endblock %}
