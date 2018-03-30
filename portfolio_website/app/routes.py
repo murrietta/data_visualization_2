@@ -45,4 +45,4 @@ def project08():
 @app.route('/test')
 def test():
     project = [x for x in projects if x['link'] == '/test'][0]
-    return render_template('test1.html', title='test', project=project)
+    return render_template('test2.html', title='test', project=project)
