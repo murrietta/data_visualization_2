@@ -1,0 +1,5 @@
+name1: ASD Friendly Sites Rating
+body: Dashboard of ASD friendliness rating of sites.
+link: /project09
+name: ASD Friendly Sites Rating
+description: Our capstone work developed a method of scoring a website regarding ASD friendliness. Higher scores mean more unfriendly. This is a dashboard visualization of the top 25 (the 25 websites with the highest/least friendly ASD ratings).

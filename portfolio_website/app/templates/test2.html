@@ -4,11 +4,84 @@
 	<h1>Project: </h1>
 	<h2>{{ project.name }}</h2>
 	<div id="sketch-holder">
-	<title>d3 sketch</title>
-		<link rel="stylesheet" href="{{ url_for('static', filename='css/test_style.css') }}">
-		<script type="text/javascript" src="{{ url_for('static', filename='js/lib/d3.v3.min.js') }}"></script>
-		<!-- <script src="https://d3js.org/d3.v4.min.js"></script> -->
-		<script type="text/javascript" src="{{ url_for('static', filename='hw08/demo.js') }}"></script>
+	<title>Website ASD Rating Dashboard</title>
+		<!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/test_style.css') }}"> -->
+	<style type="text/css">
+		body {
+			background-color: #aaa;
+		}
+		.legend {
+			font-size: 11px;
+			font-family: arial;
+		}
+		.legend2 {
+			font-size: 12px;
+			font-family: arial;
+			stroke: #445544;
+		}
+		rect {
+			stroke-width: 2;
+		}
+		circle {
+			stroke-width: 2;
+		}
+		#lineChart {    
+			position:absolute;
+			top:90px;
+			left:560px;
+			height:200px;
+		}
+		#pieChart {    
+			position:absolute;
+			top:90px;
+			left:160px;
+			width:400px;
+			height: 400px; 
+		}
+		#barChart {
+			position:absolute;
+			top:290px;
+			left:560px;
+			height:250px;
+		}
+		.axis {
+			font: 10px sans-serif;
+		}
+
+		.axis path,
+		.axis line {
+			fill: none;
+			stroke: #000;
+			shape-rendering: crispEdges;
+		}
+		.title {
+			font-family: Verdana;
+			font-size: 15px;			
+		}
+		#lineChartTitle1 {
+			font-family: Verdana;
+			font-size  : 14px;
+			fill       : lightgrey;
+			font-weight: bold;
+			text-anchor: middle;
+		}
+
+		#lineChartTitle2 {
+			font-family: Verdana;
+			font-size  : 72px;
+			fill       : grey;
+			text-anchor: middle;
+			font-weight: bold;
+			/*font-style: italic;*/
+		}
+	</style>
+	    <div id="pieChart"></div>
+    	<div id="barChart"></div>
+    	<div id="lineChart"></div>
+
+		<!-- <script type="text/javascript" src="{{ url_for('static', filename='js/lib/d3.v3.min.js') }}"></script> -->
+		<script src="https://d3js.org/d3.v3.min.js"></script>
+		<script type="text/javascript" src="{{ url_for('static', filename='hw09/hw09.js') }}"></script>
 	</div>
 	<p>{{ project.description }}</p>
 {% endblock %}
