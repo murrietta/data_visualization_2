@@ -1,0 +1,167 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Interactive Scatter</title>
+	<style>
+	body {
+		background-color: #442211;
+	}
+
+	.axis path,
+	.axis line {
+		fill: none;
+		stroke: white;
+		shape-rendering: crispEdges;
+	}
+
+	.axis text {
+		font-family: sans-serif;
+		font-size: 9px;
+		fill: #ffffff;
+	}
+</style>
+</head>
+
+<body>
+	<script src="https://d3js.org/d3.v3.min.js"></script>
+
+	<script type="text/javascript">
+		var margin = {top: 10, right: 10, bottom: 20, left: 30};
+		var width = 960 - margin.left - margin.right;
+		var height = 600 - margin.top - margin.bottom;
+
+		var ptCount = 100;
+		var dataSet = [];
+		for (var i=0; i<ptCount; i++){
+			dataSet.push([(i*1/2.0), Math.random()]);
+		}
+
+		var xScale = d3.scale.linear()
+			.domain([d3.min(dataSet, function(d){return d[0];}), d3.max(dataSet, function(d){return d[0];})])
+			.range([0, width])
+			//.clamp(true);
+
+		var yScale = d3.scale.linear()
+			.domain([d3.min(dataSet, function(d){return d[1];}), d3.max(dataSet, function(d){return d[1];})])
+			.range([height, 0]);
+
+		var rScale = d3.scale.linear()
+			.domain([0, d3.max(dataSet, function(d){return d[1]; })])
+			.range([5, 15]);
+
+		var xAxis = d3.svg.axis()
+			.scale(xScale)
+			.orient("bottom")
+			.ticks(20)
+			.tickSize(3, 12);
+
+		var yAxis = d3.svg.axis()
+			.scale(yScale)
+			.orient("left")
+			.ticks(20)
+			.tickSize(4, 12);
+
+		var svg = d3.select('body')
+			.append('svg')
+			.attr('width', width + margin.left + margin.right)
+			.attr("height", height + margin.top + margin.bottom)
+			.append("g")
+			.attr("transform", "translate(" + margin.left + ", " + margin.top + ")");
+
+		svg.selectAll("circle")
+			.data(dataSet)
+			.enter()
+			.append("circle")
+			.attr("fill", "#442211")
+			.attr("cx", 0)
+			.attr("cy", height)
+			.attr("r", 100)
+			.on("mouseover", onMouseOver)
+			.on("mouseout", onMouseOut);
+
+		svg.append("g")
+			.attr("class", "axis")
+			.attr("transform", "translate(0," + height + ")")
+			.call(xAxis)
+				.selectAll(".tick text")
+				.style("text-anchor", "middle")
+				.attr("x", 0)
+				.attr("y", 6);
+
+		svg.append("g")
+			.attr("class", "axis")
+			.attr("transform", "translate(0," + 0 + ")")
+			.call(yAxis)
+				.selectAll(".tick text")
+				.style("text-anchor", "end")
+				.attr("x", -5)
+				.attr("y", 0);
+
+		svg.selectAll("circle")
+			.transition()
+			.delay(1000)
+			.duration(1000)
+				.attr("cx", function(d) {return xScale(d[0]);})
+				.attr("cy", function(d) {return yScale(d[1]);})
+				.attr("r", function(d, i) {return rScale(d[1]);})
+				.attr("fill", "white");
+
+		function onMouseOver(d, i) {
+			d3.select(this)
+				.transition()
+				.duration(300)
+				.attr("fill", "orange")
+				.attr("r", function(d, i) {return 2*rScale(d[1]); })
+
+				var txt = svg.append("text").attr({
+					id: "t" + parseInt(d[0]) + "-" + parseInt(d[1]) + "-" + i,
+					x: function() {return xScale(d[0]) - 15; },
+					y: function() {return yScale(d[1]) - 20; }
+				})
+				.text(function() {
+					return [parseInt(d[0]), parseInt(d[1])];
+				})
+				.attr("font-family", "sans-serif")
+				.attr("font-size", "14px")
+				.attr("fill", "#ffff00") 
+				
+				// mse = d3.mouse(this);
+				// console.log(xScale(d[0]));
+				svg.append("line")
+					.attr("id", "x_line")
+					.attr("x1", xScale(d[0]))  //<<== change your code here
+					.attr("y1", yScale(d[1]))
+					.attr("x2", xScale(d[0]))  //<<== and here
+					.attr("y2", height)
+					.style("stroke-width", 2)
+					.style("stroke", "red")
+					.style("fill", "none");
+				svg.append("line")
+					.attr("id", "y_line")
+					.attr("x1", 0)  //<<== change your code here
+					.attr("y1", yScale(d[1]))
+					.attr("x2", xScale(d[0]))  //<<== and here
+					.attr("y2", yScale(d[1]))
+					.style("stroke-width", 2)
+					.style("stroke", "red")
+					.style("fill", "none");
+			}
+
+			function onMouseOut(d, i) {
+				d3.select(this)
+					.transition()
+					.duration(1200)
+					.attr("fill", "white")
+					.attr("r", function(d, i) { return rScale(d[1]); })
+
+					//select text by ide and then remove
+					d3.select("#t" + parseInt(d[0]) + "-" + parseInt(d[1]) + "-" + i)
+					.remove();
+					d3.select("#x_line").remove();
+					d3.select("#y_line").remove();
+			}
+
+	</script>
+</body>
+</html>
