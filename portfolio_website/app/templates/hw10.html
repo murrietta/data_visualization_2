@@ -1,0 +1,140 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Interactive Scatter</title>
+	
+<style>
+
+.node {
+  font: 10px sans-serif;
+}
+
+.link {
+  stroke: steelblue;
+  stroke-opacity: 0.5;
+  fill: none;
+  pointer-events: none;
+}
+
+</style>
+</head>
+
+<body>
+	<script src="https://d3js.org/d3.v4.min.js"></script>
+
+	<script type="text/javascript">
+		// some data we generated for 20 patients stays
+		pats = {"pat_00": {"Day 01": "NCU",
+			"Day 02": "EXP",
+			"Day 03": "EXP",
+			"Day 04": "DIS",
+			"Day 05": "NCU",
+			"Day 06": "NCU",
+			"Day 07": "NCU",
+			"Day 08": "VOY",
+			"Day 09": "APO"},
+			"pat_01": {"Day 01": "NCU", "Day 02": "PCU", "Day 03": "VOY"},
+			"pat_02": {"Day 01": "REH",
+			"Day 02": "VOY",
+			"Day 03": "APO",
+			"Day 04": "VOY",
+			"Day 05": "VOY",
+			"Day 06": "CRA",
+			"Day 07": "EXP",
+			"Day 08": "EXP"},
+			"pat_03": {"Day 01": "NCU",
+			"Day 02": "REH",
+			"Day 03": "CRA",
+			"Day 04": "REH",
+			"Day 05": "EXP",
+			"Day 06": "REH",
+			"Day 07": "PCU",
+			"Day 08": "DIS"},
+			"pat_04": {"Day 01": "EXP",
+			"Day 02": "DIS",
+			"Day 03": "NCU",
+			"Day 04": "CRA",
+			"Day 05": "NCU",
+			"Day 06": "EXP",
+			"Day 07": "PCU",
+			"Day 08": "NCU",
+			"Day 09": "APO"},
+			"pat_05": {"Day 01": "CRA",
+			"Day 02": "PCU",
+			"Day 03": "NCU",
+			"Day 04": "DIS",
+			"Day 05": "CRA",
+			"Day 06": "DIS",
+			"Day 07": "NCU"},
+			"pat_06": {"Day 01": "CRA",
+			"Day 02": "REH",
+			"Day 03": "CRA",
+			"Day 04": "APO",
+			"Day 05": "VOY",
+			"Day 06": "CRA",
+			"Day 07": "CRA",
+			"Day 08": "EXP",
+			"Day 09": "DIS",
+			"Day 10": "EXP"},
+			"pat_07": {"Day 01": "DIS", "Day 02": "PCU", "Day 03": "VOY", "Day 04": "EXP", "Day 05": "PCU"},
+			"pat_08": {"Day 01": "REH", "Day 02": "CRA"},
+			"pat_09": {"Day 01": "EXP", "Day 02": "CRA"},
+			"pat_10": {"Day 01": "REH",
+			"Day 02": "CRA",
+			"Day 03": "VOY",
+			"Day 04": "NCU",
+			"Day 05": "NCU",
+			"Day 06": "NCU",
+			"Day 07": "EXP",
+			"Day 08": "DIS"},
+			"pat_11": {"Day 01": "NCU", "Day 02": "EXP"},
+			"pat_12": {"Day 01": "NCU", "Day 02": "APO", "Day 03": "PCU", "Day 04": "EXP", "Day 05": "APO"},
+			"pat_13": {"Day 01": "VOY", "Day 02": "EXP"},
+			"pat_14": {"Day 01": "PCU", "Day 02": "PCU"},
+			"pat_15": {"Day 01": "VOY", "Day 02": "VOY"},
+			"pat_16": {"Day 01": "CRA",
+			"Day 02": "REH",
+			"Day 03": "PCU",
+			"Day 04": "DIS",
+			"Day 05": "VOY",
+			"Day 06": "REH",
+			"Day 07": "NCU",
+			"Day 08": "REH",
+			"Day 09": "REH",
+			"Day 10": "REH"},
+			"pat_17": {"Day 01": "EXP", "Day 02": "DIS"},
+			"pat_18": {"Day 01": "EXP",
+			"Day 02": "CRA",
+			"Day 03": "REH",
+			"Day 04": "EXP",
+			"Day 05": "APO",
+			"Day 06": "REH",
+			"Day 07": "EXP",
+			"Day 08": "PCU",
+			"Day 09": "EXP",
+			"Day 10": "REH"},
+			"pat_19": {"Day 01": "DIS",
+			"Day 02": "PCU",
+			"Day 03": "EXP",
+			"Day 04": "DIS",
+			"Day 05": "CRA",
+			"Day 06": "PCU",
+			"Day 07": "DIS",
+			"Day 08": "PCU",
+			"Day 09": "VOY"}};
+
+		// var margin = {top: 10, right: 10, bottom: 20, left: 30};
+		// var width = 960 - margin.left - margin.right;
+		// var height = 600 - margin.top - margin.bottom;
+
+		//the goal is to show a single circle of all possible locations with different
+		//color lines that map a patients stay (one color for one patient). the lines
+		//will be from one place to another indicating the places a patient stayed
+
+		//the graph will look like this sort of:
+		//https://bl.ocks.org/mbostock/1044242
+
+	</script>
+</body>
+</html>
