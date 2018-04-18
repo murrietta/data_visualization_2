@@ -1,140 +1,341 @@
-<!DOCTYPE HTML>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Interactive Scatter</title>
-	
-<style>
-
-.node {
-  font: 10px sans-serif;
-}
-
-.link {
-  stroke: steelblue;
-  stroke-opacity: 0.5;
-  fill: none;
-  pointer-events: none;
-}
-
+<title>Direct Exposure Relationships</title>
+<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<style type="text/css">
 </style>
 </head>
-
 <body>
-	<script src="https://d3js.org/d3.v4.min.js"></script>
+<!-- started with this: http://bl.ocks.org/jhb/5955887 -->
+<script type="text/javascript">
 
-	<script type="text/javascript">
-		// some data we generated for 20 patients stays
-		pats = {"pat_00": {"Day 01": "NCU",
-			"Day 02": "EXP",
-			"Day 03": "EXP",
-			"Day 04": "DIS",
-			"Day 05": "NCU",
-			"Day 06": "NCU",
-			"Day 07": "NCU",
-			"Day 08": "VOY",
-			"Day 09": "APO"},
-			"pat_01": {"Day 01": "NCU", "Day 02": "PCU", "Day 03": "VOY"},
-			"pat_02": {"Day 01": "REH",
-			"Day 02": "VOY",
-			"Day 03": "APO",
-			"Day 04": "VOY",
-			"Day 05": "VOY",
-			"Day 06": "CRA",
-			"Day 07": "EXP",
-			"Day 08": "EXP"},
-			"pat_03": {"Day 01": "NCU",
-			"Day 02": "REH",
-			"Day 03": "CRA",
-			"Day 04": "REH",
-			"Day 05": "EXP",
-			"Day 06": "REH",
-			"Day 07": "PCU",
-			"Day 08": "DIS"},
-			"pat_04": {"Day 01": "EXP",
-			"Day 02": "DIS",
-			"Day 03": "NCU",
-			"Day 04": "CRA",
-			"Day 05": "NCU",
-			"Day 06": "EXP",
-			"Day 07": "PCU",
-			"Day 08": "NCU",
-			"Day 09": "APO"},
-			"pat_05": {"Day 01": "CRA",
-			"Day 02": "PCU",
-			"Day 03": "NCU",
-			"Day 04": "DIS",
-			"Day 05": "CRA",
-			"Day 06": "DIS",
-			"Day 07": "NCU"},
-			"pat_06": {"Day 01": "CRA",
-			"Day 02": "REH",
-			"Day 03": "CRA",
-			"Day 04": "APO",
-			"Day 05": "VOY",
-			"Day 06": "CRA",
-			"Day 07": "CRA",
-			"Day 08": "EXP",
-			"Day 09": "DIS",
-			"Day 10": "EXP"},
-			"pat_07": {"Day 01": "DIS", "Day 02": "PCU", "Day 03": "VOY", "Day 04": "EXP", "Day 05": "PCU"},
-			"pat_08": {"Day 01": "REH", "Day 02": "CRA"},
-			"pat_09": {"Day 01": "EXP", "Day 02": "CRA"},
-			"pat_10": {"Day 01": "REH",
-			"Day 02": "CRA",
-			"Day 03": "VOY",
-			"Day 04": "NCU",
-			"Day 05": "NCU",
-			"Day 06": "NCU",
-			"Day 07": "EXP",
-			"Day 08": "DIS"},
-			"pat_11": {"Day 01": "NCU", "Day 02": "EXP"},
-			"pat_12": {"Day 01": "NCU", "Day 02": "APO", "Day 03": "PCU", "Day 04": "EXP", "Day 05": "APO"},
-			"pat_13": {"Day 01": "VOY", "Day 02": "EXP"},
-			"pat_14": {"Day 01": "PCU", "Day 02": "PCU"},
-			"pat_15": {"Day 01": "VOY", "Day 02": "VOY"},
-			"pat_16": {"Day 01": "CRA",
-			"Day 02": "REH",
-			"Day 03": "PCU",
-			"Day 04": "DIS",
-			"Day 05": "VOY",
-			"Day 06": "REH",
-			"Day 07": "NCU",
-			"Day 08": "REH",
-			"Day 09": "REH",
-			"Day 10": "REH"},
-			"pat_17": {"Day 01": "EXP", "Day 02": "DIS"},
-			"pat_18": {"Day 01": "EXP",
-			"Day 02": "CRA",
-			"Day 03": "REH",
-			"Day 04": "EXP",
-			"Day 05": "APO",
-			"Day 06": "REH",
-			"Day 07": "EXP",
-			"Day 08": "PCU",
-			"Day 09": "EXP",
-			"Day 10": "REH"},
-			"pat_19": {"Day 01": "DIS",
-			"Day 02": "PCU",
-			"Day 03": "EXP",
-			"Day 04": "DIS",
-			"Day 05": "CRA",
-			"Day 06": "PCU",
-			"Day 07": "DIS",
-			"Day 08": "PCU",
-			"Day 09": "VOY"}};
+    var w = 1200;
+    var h = 900;
+    var linkDistance=350;
 
-		// var margin = {top: 10, right: 10, bottom: 20, left: 30};
-		// var width = 960 - margin.left - margin.right;
-		// var height = 600 - margin.top - margin.bottom;
+    // var colors = d3.scale.category20();
+ 	var colors = ["#f7fcb9","#addd8e","#31a354", "#ffffcc","#c2e699","#78c679","#238443","#ffffcc","#c2e699","#78c679","#31a354","#006837", "#ffffcc","#d9f0a3","#addd8e","#78c679","#31a354","#006837", "#ffffcc","#d9f0a3","#addd8e","#78c679","#41ab5d","#238443","#005a32"];
 
-		//the goal is to show a single circle of all possible locations with different
-		//color lines that map a patients stay (one color for one patient). the lines
-		//will be from one place to another indicating the places a patient stayed
+    var dataset = {
+    nodes: [
+    {name: "Patient_00"},
+    {name: "Patient_01"},
+    {name: "Patient_02"},
+    {name: "Patient_03"},
+    {name: "Patient_04"},
+    {name: "Patient_05"},
+    {name: "Patient_06"},
+    {name: "Patient_07"},
+    {name: "Patient_08"},
+    {name: "Patient_09"},
+    {name: "Patient_10"},
+    {name: "Patient_11"},
+    {name: "Patient_12"},
+    {name: "Patient_13"},
+    {name: "Patient_14"},
+    {name: "Patient_15"},
+    {name: "Patient_16"},
+    {name: "Patient_17"},
+    {name: "Patient_18"},
+    {name: "Patient_19"}
+    ],
+    edges: [
+	{source: 0, target: 2},
+	{source: 0, target: 4},
+	{source: 0, target: 1},
+	{source: 0, target: 2},
+	{source: 0, target: 18},
+	{source: 0, target: 19},
+	{source: 0, target: 12},
+	{source: 0, target: 3},
+	{source: 0, target: 8},
+	{source: 0, target: 14},
+	{source: 0, target: 6},
+	{source: 0, target: 1},
+	{source: 0, target: 9},
+	{source: 0, target: 10},
+	{source: 1, target: 7},
+	{source: 1, target: 16},
+	{source: 1, target: 19},
+	{source: 1, target: 2},
+	{source: 1, target: 18},
+	{source: 1, target: 19},
+	{source: 1, target: 11},
+	{source: 1, target: 17},
+	{source: 1, target: 18},
+	{source: 1, target: 19},
+	{source: 1, target: 8},
+	{source: 1, target: 18},
+	{source: 1, target: 9},
+	{source: 1, target: 10},
+	{source: 2, target: 4},
+	{source: 2, target: 18},
+	{source: 2, target: 19},
+	{source: 3, target: 5},
+	{source: 3, target: 6},
+	{source: 3, target: 5},
+	{source: 3, target: 6},
+	{source: 3, target: 11},
+	{source: 3, target: 16},
+	{source: 3, target: 14},
+	{source: 3, target: 8},
+	{source: 3, target: 14},
+	{source: 3, target: 14},
+	{source: 3, target: 13},
+	{source: 3, target: 16},
+	{source: 3, target: 18},
+	{source: 4, target: 17},
+	{source: 5, target: 6},
+	{source: 5, target: 6},
+	{source: 5, target: 11},
+	{source: 5, target: 16},
+	{source: 5, target: 10},
+	{source: 5, target: 13},
+	{source: 5, target: 10},
+	{source: 5, target: 13},
+	{source: 5, target: 18},
+	{source: 5, target: 6},
+	{source: 5, target: 10},
+	{source: 5, target: 11},
+	{source: 5, target: 18},
+	{source: 5, target: 10},
+	{source: 5, target: 11},
+	{source: 6, target: 11},
+	{source: 6, target: 16},
+	{source: 6, target: 7},
+	{source: 6, target: 8},
+	{source: 6, target: 13},
+	{source: 6, target: 16},
+	{source: 6, target: 9},
+	{source: 6, target: 16},
+	{source: 6, target: 10},
+	{source: 6, target: 11},
+	{source: 6, target: 18},
+	{source: 7, target: 16},
+	{source: 7, target: 19},
+	{source: 7, target: 12},
+	{source: 7, target: 13},
+	{source: 7, target: 8},
+	{source: 8, target: 11},
+	{source: 8, target: 14},
+	{source: 8, target: 9},
+	{source: 8, target: 14},
+	{source: 8, target: 15},
+	{source: 8, target: 14},
+	{source: 8, target: 18},
+	{source: 9, target: 14},
+	{source: 9, target: 15},
+	{source: 9, target: 16},
+	{source: 9, target: 10},
+	{source: 9, target: 12},
+	{source: 9, target: 12},
+	{source: 10, target: 12},
+	{source: 10, target: 13},
+	{source: 10, target: 11},
+	{source: 10, target: 18},
+	{source: 10, target: 11},
+	{source: 11, target: 14},
+	{source: 11, target: 16},
+	{source: 11, target: 17},
+	{source: 11, target: 18},
+	{source: 11, target: 19},
+	{source: 11, target: 12},
+	{source: 11, target: 18},
+	{source: 11, target: 12},
+	{source: 11, target: 18},
+	{source: 12, target: 13},
+	{source: 12, target: 18},
+	{source: 13, target: 17},
+	{source: 13, target: 18},
+	{source: 13, target: 16},
+	{source: 13, target: 16},
+	{source: 14, target: 15},
+	{source: 16, target: 19},
+	{source: 17, target: 18},
+	{source: 17, target: 18},
+	{source: 17, target: 19},
+	{source: 18, target: 19},
+	{source: 18, target: 19}
+    ]
+    };
 
-		//the graph will look like this sort of:
-		//https://bl.ocks.org/mbostock/1044242
+    //adapted from bostock's answer: https://stackoverflow.com/questions/8739072/highlight-selected-node-its-links-and-its-children-in-a-d3-force-directed-grap
+	var linkedByIndex = {};
+	dataset.edges.forEach(function(d) {
+	  linkedByIndex[d.source + "," + d.target] = 1;
+	  linkedByIndex[d.target + "," + d.source] = 1;
+	});
 
-	</script>
+	function neighboring(a, b) {
+	  return linkedByIndex[a.index + "," + b.index];
+	}
+ 
+	function colorNode(name){
+		//iterate through all the dom and get the DOM which has the data
+		var node = d3.selectAll(".node")[0].filter(function(d){
+			return d3.select(d).data()[0].name == name;
+		});
+		//for the matching node DOM set the fill to be red
+		d3.selectAll(node).style("fill", "red");
+	}
+
+	function colorLink(src,tgt){
+		//iterate through all the links for src and target.
+		var link = d3.selectAll(".link")[0].filter(function(d){
+			return (d3.select(d).data()[0][0].name == src && d3.select(d).data()[0][2].name == tgt);
+		});
+		//for the filtered link make the stroke red.
+		d3.selectAll(link).style("stroke", "red");
+	}
+
+    var svg = d3.select("body").append("svg").attr({"width":w,"height":h});
+
+    var force = d3.layout.force()
+        .nodes(dataset.nodes)
+        .links(dataset.edges)
+        .size([w,h])
+        .linkDistance([linkDistance])
+        .charge([-500])
+        .theta(0.1)
+        .gravity(0.05)
+        .start();
+
+ 
+
+    var edges = svg.selectAll("line")
+      .data(dataset.edges)
+      .enter()
+      .append("line")
+      // .attr("id",function(d,i) {return 'edge'+i})
+      .attr({"id": function(d,i) {return d.source.name;},
+  			"class": "edgeline"})
+      .attr('marker-end','url(#arrowhead)')
+      .style("stroke","#ccc")
+      .style("pointer-events", "none");
+
+    var nodes = svg.selectAll("circle")
+      .data(dataset.nodes)
+      .enter()
+      .append("circle")
+      .attr({"r":15, "id":function(d){return d.name;}}) //name of node
+      .style("fill",function(d,i){return colors[i];})
+      .on("mousedown", function(d, i){
+			d3.selectAll("#" + d.name).style("fill", "red");
+			d3.selectAll("#" + d.name).style("stroke", "red");
+			d3.selectAll("circle").filter(function(x){
+				return neighboring(d, x) == 1;
+			}).style("fill", "red");
+			// d3.selectAll("circle").style("fill", function(o){
+			// 	return neighboring(d, o) ? 1: "red";
+			// });
+		})
+      .on("mouseup", function(d, i){
+			d3.selectAll("#" + d.name).style("fill", colors[i]);
+			d3.selectAll("#" + d.name).style("stroke", "#ccc");
+			d3.selectAll("circle").filter(function(x, j){
+				return neighboring(d, x) == 1;
+			}).style("fill", function(x, j){return colors[j];});
+			// d3.selectAll("circle").style("fill", function(o, j){
+			// 	return neighboring(d, o) ? 1: colors[j];
+			// })
+		})
+      .call(force.drag)
+
+
+    var nodelabels = svg.selectAll(".nodelabel") 
+       .data(dataset.nodes)
+       .enter()
+       .append("text")
+       .attr({"x":function(d){return d.x;},
+              "y":function(d){return d.y;},
+              "class":"nodelabel",
+              "stroke":"black"})
+       .text(function(d){return d.name;});
+
+    var edgepaths = svg.selectAll(".edgepath")
+        .data(dataset.edges)
+        .enter()
+        .append('path')
+        .attr({'d': function(d) {return 'M '+d.source.x+' '+d.source.y+' L '+ d.target.x +' '+d.target.y},
+               'class':'edgepath',
+               'fill-opacity':0,
+               'stroke-opacity':0,
+               'fill':'blue',
+               'stroke':'red',
+               // 'id':function(d,i) {return 'edgepath'+i},
+               'id':function(d) {return d.source.name;}})
+        .style("pointer-events", "none");
+
+    //append text to the edges, we don't really want to do this though
+    // var edgelabels = svg.selectAll(".edgelabel")
+    //     .data(dataset.edges)
+    //     .enter()
+    //     .append('text')
+    //     .style("pointer-events", "none")
+    //     .attr({'class':'edgelabel',
+    //            'id':function(d,i){return d.source.name + " to " + d.target.name;},
+    //            'dx':80,
+    //            'dy':0,
+    //            'font-size':10,
+    //            'fill':'#aaa'});
+
+    // edgelabels.append('textPath')
+    //     .attr('xlink:href',function(d,i) {return d.source.name;}) //this won't work because we changed the labels to be duplicated
+    //     .style("pointer-events", "none")
+    //     .text(function(d,i){return d.source.name + " to " + d.target.name;});
+
+    //add arrow heads indicating direction of relationship
+    // svg.append('defs').append('marker')
+    //     .attr({'id':'arrowhead_',
+    //            'viewBox':'-0 -5 10 10',
+    //            'refX':25,
+    //            'refY':0,
+    //            //'markerUnits':'strokeWidth',
+    //            'orient':'auto',
+    //            'markerWidth':10,
+    //            'markerHeight':10,
+    //            'xoverflow':'visible'})
+    //     .append('svg:path')
+    //         .attr('d', 'M 0,-5 L 10 ,0 L 0,5')
+    //         .attr('fill', '#ccc')
+    //         .attr('stroke','#ccc');
+     
+
+    force.on("tick", function(){
+
+        edges.attr({"x1": function(d){return d.source.x;},
+                    "y1": function(d){return d.source.y;},
+                    "x2": function(d){return d.target.x;},
+                    "y2": function(d){return d.target.y;}
+        });
+
+        nodes.attr({"cx":function(d){return d.x;},
+                    "cy":function(d){return d.y;}
+        });
+
+        nodelabels.attr("x", function(d) { return d.x; }) 
+                  .attr("y", function(d) { return d.y; });
+
+        edgepaths.attr('d', function(d) { var path='M '+d.source.x+' '+d.source.y+' L '+ d.target.x +' '+d.target.y;
+                                           //console.log(d)
+                                           return path});       
+
+        // edgelabels.attr('transform',function(d,i){
+        //     if (d.target.x<d.source.x){
+        //         bbox = this.getBBox();
+        //         rx = bbox.x+bbox.width/2;
+        //         ry = bbox.y+bbox.height/2;
+        //         return 'rotate(180 '+rx+' '+ry+')';
+        //         }
+        //     else {
+        //         return 'rotate(0)';
+        //         }
+        // });
+    });
+
+</script>
+
 </body>
 </html>

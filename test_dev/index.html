@@ -2,47 +2,194 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Force Layout with labels on edges</title>
+<title>Direct Exposure Relationships</title>
 <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 <style type="text/css">
 </style>
 </head>
 <body>
-
+<!-- started with this: http://bl.ocks.org/jhb/5955887 -->
 <script type="text/javascript">
 
-    var w = 1000;
-    var h = 600;
-    var linkDistance=200;
+    var w = 1200;
+    var h = 900;
+    var linkDistance=350;
 
-    var colors = d3.scale.category10();
+    // var colors = d3.scale.category20();
+ 	var colors = ["#f7fcb9","#addd8e","#31a354", "#ffffcc","#c2e699","#78c679","#238443","#ffffcc","#c2e699","#78c679","#31a354","#006837", "#ffffcc","#d9f0a3","#addd8e","#78c679","#31a354","#006837", "#ffffcc","#d9f0a3","#addd8e","#78c679","#41ab5d","#238443","#005a32"];
 
     var dataset = {
-
     nodes: [
-    {name: "APO"},
-    {name: "CRA"},
-    {name: "DIS"},
-    {name: "EXP"},
-    {name: "NCU"},
-    {name: "PCU"},
-    {name: "REH"},
-    {name: "VOY"}
+    {name: "Patient_00"},
+    {name: "Patient_01"},
+    {name: "Patient_02"},
+    {name: "Patient_03"},
+    {name: "Patient_04"},
+    {name: "Patient_05"},
+    {name: "Patient_06"},
+    {name: "Patient_07"},
+    {name: "Patient_08"},
+    {name: "Patient_09"},
+    {name: "Patient_10"},
+    {name: "Patient_11"},
+    {name: "Patient_12"},
+    {name: "Patient_13"},
+    {name: "Patient_14"},
+    {name: "Patient_15"},
+    {name: "Patient_16"},
+    {name: "Patient_17"},
+    {name: "Patient_18"},
+    {name: "Patient_19"}
     ],
     edges: [
-    {pat: 0, day: 0, source: 4, target: 3},
-    {pat: 0, day: 1, source: 3, target: 3},
-    {pat: 0, day: 2, source: 3, target: 3},
-    {pat: 0, day: 3, source: 3, target: 2},
-    {pat: 0, day: 4, source: 2, target: 4},
-    {pat: 0, day: 5, source: 4, target: 4},
-    {pat: 0, day: 6, source: 4, target: 4},
-    {pat: 0, day: 7, source: 4, target: 7},
-    {pat: 0, day: 8, source: 7, target: 0}
+	{source: 0, target: 2},
+	{source: 0, target: 4},
+	{source: 0, target: 1},
+	{source: 0, target: 2},
+	{source: 0, target: 18},
+	{source: 0, target: 19},
+	{source: 0, target: 12},
+	{source: 0, target: 3},
+	{source: 0, target: 8},
+	{source: 0, target: 14},
+	{source: 0, target: 6},
+	{source: 0, target: 1},
+	{source: 0, target: 9},
+	{source: 0, target: 10},
+	{source: 1, target: 7},
+	{source: 1, target: 16},
+	{source: 1, target: 19},
+	{source: 1, target: 2},
+	{source: 1, target: 18},
+	{source: 1, target: 19},
+	{source: 1, target: 11},
+	{source: 1, target: 17},
+	{source: 1, target: 18},
+	{source: 1, target: 19},
+	{source: 1, target: 8},
+	{source: 1, target: 18},
+	{source: 1, target: 9},
+	{source: 1, target: 10},
+	{source: 2, target: 4},
+	{source: 2, target: 18},
+	{source: 2, target: 19},
+	{source: 3, target: 5},
+	{source: 3, target: 6},
+	{source: 3, target: 5},
+	{source: 3, target: 6},
+	{source: 3, target: 11},
+	{source: 3, target: 16},
+	{source: 3, target: 14},
+	{source: 3, target: 8},
+	{source: 3, target: 14},
+	{source: 3, target: 14},
+	{source: 3, target: 13},
+	{source: 3, target: 16},
+	{source: 3, target: 18},
+	{source: 4, target: 17},
+	{source: 5, target: 6},
+	{source: 5, target: 6},
+	{source: 5, target: 11},
+	{source: 5, target: 16},
+	{source: 5, target: 10},
+	{source: 5, target: 13},
+	{source: 5, target: 10},
+	{source: 5, target: 13},
+	{source: 5, target: 18},
+	{source: 5, target: 6},
+	{source: 5, target: 10},
+	{source: 5, target: 11},
+	{source: 5, target: 18},
+	{source: 5, target: 10},
+	{source: 5, target: 11},
+	{source: 6, target: 11},
+	{source: 6, target: 16},
+	{source: 6, target: 7},
+	{source: 6, target: 8},
+	{source: 6, target: 13},
+	{source: 6, target: 16},
+	{source: 6, target: 9},
+	{source: 6, target: 16},
+	{source: 6, target: 10},
+	{source: 6, target: 11},
+	{source: 6, target: 18},
+	{source: 7, target: 16},
+	{source: 7, target: 19},
+	{source: 7, target: 12},
+	{source: 7, target: 13},
+	{source: 7, target: 8},
+	{source: 8, target: 11},
+	{source: 8, target: 14},
+	{source: 8, target: 9},
+	{source: 8, target: 14},
+	{source: 8, target: 15},
+	{source: 8, target: 14},
+	{source: 8, target: 18},
+	{source: 9, target: 14},
+	{source: 9, target: 15},
+	{source: 9, target: 16},
+	{source: 9, target: 10},
+	{source: 9, target: 12},
+	{source: 9, target: 12},
+	{source: 10, target: 12},
+	{source: 10, target: 13},
+	{source: 10, target: 11},
+	{source: 10, target: 18},
+	{source: 10, target: 11},
+	{source: 11, target: 14},
+	{source: 11, target: 16},
+	{source: 11, target: 17},
+	{source: 11, target: 18},
+	{source: 11, target: 19},
+	{source: 11, target: 12},
+	{source: 11, target: 18},
+	{source: 11, target: 12},
+	{source: 11, target: 18},
+	{source: 12, target: 13},
+	{source: 12, target: 18},
+	{source: 13, target: 17},
+	{source: 13, target: 18},
+	{source: 13, target: 16},
+	{source: 13, target: 16},
+	{source: 14, target: 15},
+	{source: 16, target: 19},
+	{source: 17, target: 18},
+	{source: 17, target: 18},
+	{source: 17, target: 19},
+	{source: 18, target: 19},
+	{source: 18, target: 19}
     ]
     };
 
+    //adapted from bostock's answer: https://stackoverflow.com/questions/8739072/highlight-selected-node-its-links-and-its-children-in-a-d3-force-directed-grap
+	var linkedByIndex = {};
+	dataset.edges.forEach(function(d) {
+	  linkedByIndex[d.source + "," + d.target] = 1;
+	  linkedByIndex[d.target + "," + d.source] = 1;
+	});
+
+	function neighboring(a, b) {
+	  return linkedByIndex[a.index + "," + b.index];
+	}
  
+	function colorNode(name){
+		//iterate through all the dom and get the DOM which has the data
+		var node = d3.selectAll(".node")[0].filter(function(d){
+			return d3.select(d).data()[0].name == name;
+		});
+		//for the matching node DOM set the fill to be red
+		d3.selectAll(node).style("fill", "red");
+	}
+
+	function colorLink(src,tgt){
+		//iterate through all the links for src and target.
+		var link = d3.selectAll(".link")[0].filter(function(d){
+			return (d3.select(d).data()[0][0].name == src && d3.select(d).data()[0][2].name == tgt);
+		});
+		//for the filtered link make the stroke red.
+		d3.selectAll(link).style("stroke", "red");
+	}
+
     var svg = d3.select("body").append("svg").attr({"width":w,"height":h});
 
     var force = d3.layout.force()
@@ -61,17 +208,39 @@
       .data(dataset.edges)
       .enter()
       .append("line")
-      .attr("id",function(d,i) {return 'edge'+i})
+      // .attr("id",function(d,i) {return 'edge'+i})
+      .attr({"id": function(d,i) {return d.source.name;},
+  			"class": "edgeline"})
       .attr('marker-end','url(#arrowhead)')
       .style("stroke","#ccc")
       .style("pointer-events", "none");
-    
+
     var nodes = svg.selectAll("circle")
       .data(dataset.nodes)
       .enter()
       .append("circle")
-      .attr({"r":15})
-      .style("fill",function(d,i){return colors(i);})
+      .attr({"r":15, "id":function(d){return d.name;}}) //name of node
+      .style("fill",function(d,i){return colors[i];})
+      .on("mousedown", function(d, i){
+			d3.selectAll("#" + d.name).style("fill", "red");
+			d3.selectAll("#" + d.name).style("stroke", "red");
+			d3.selectAll("circle").filter(function(x){
+				return neighboring(d, x) == 1;
+			}).style("fill", "red");
+			// d3.selectAll("circle").style("fill", function(o){
+			// 	return neighboring(d, o) ? 1: "red";
+			// });
+		})
+      .on("mouseup", function(d, i){
+			d3.selectAll("#" + d.name).style("fill", colors[i]);
+			d3.selectAll("#" + d.name).style("stroke", "#ccc");
+			d3.selectAll("circle").filter(function(x, j){
+				return neighboring(d, x) == 1;
+			}).style("fill", function(x, j){return colors[j];});
+			// d3.selectAll("circle").style("fill", function(o, j){
+			// 	return neighboring(d, o) ? 1: colors[j];
+			// })
+		})
       .call(force.drag)
 
 
@@ -95,41 +264,43 @@
                'stroke-opacity':0,
                'fill':'blue',
                'stroke':'red',
-               'id':function(d,i) {return 'edgepath'+i}})
+               // 'id':function(d,i) {return 'edgepath'+i},
+               'id':function(d) {return d.source.name;}})
         .style("pointer-events", "none");
 
-    var edgelabels = svg.selectAll(".edgelabel")
-        .data(dataset.edges)
-        .enter()
-        .append('text')
-        .style("pointer-events", "none")
-        .attr({'class':'edgelabel',
-               'id':function(d,i){return 'edgelabel'+i},
-               'dx':80,
-               'dy':0,
-               'font-size':10,
-               'fill':'#aaa'});
+    //append text to the edges, we don't really want to do this though
+    // var edgelabels = svg.selectAll(".edgelabel")
+    //     .data(dataset.edges)
+    //     .enter()
+    //     .append('text')
+    //     .style("pointer-events", "none")
+    //     .attr({'class':'edgelabel',
+    //            'id':function(d,i){return d.source.name + " to " + d.target.name;},
+    //            'dx':80,
+    //            'dy':0,
+    //            'font-size':10,
+    //            'fill':'#aaa'});
 
-    edgelabels.append('textPath')
-        .attr('xlink:href',function(d,i) {return '#edgepath'+i})
-        .style("pointer-events", "none")
-        .text(function(d,i){return 'label '+i});
+    // edgelabels.append('textPath')
+    //     .attr('xlink:href',function(d,i) {return d.source.name;}) //this won't work because we changed the labels to be duplicated
+    //     .style("pointer-events", "none")
+    //     .text(function(d,i){return d.source.name + " to " + d.target.name;});
 
-
-    svg.append('defs').append('marker')
-        .attr({'id':'arrowhead',
-               'viewBox':'-0 -5 10 10',
-               'refX':25,
-               'refY':0,
-               //'markerUnits':'strokeWidth',
-               'orient':'auto',
-               'markerWidth':10,
-               'markerHeight':10,
-               'xoverflow':'visible'})
-        .append('svg:path')
-            .attr('d', 'M 0,-5 L 10 ,0 L 0,5')
-            .attr('fill', '#ccc')
-            .attr('stroke','#ccc');
+    //add arrow heads indicating direction of relationship
+    // svg.append('defs').append('marker')
+    //     .attr({'id':'arrowhead_',
+    //            'viewBox':'-0 -5 10 10',
+    //            'refX':25,
+    //            'refY':0,
+    //            //'markerUnits':'strokeWidth',
+    //            'orient':'auto',
+    //            'markerWidth':10,
+    //            'markerHeight':10,
+    //            'xoverflow':'visible'})
+    //     .append('svg:path')
+    //         .attr('d', 'M 0,-5 L 10 ,0 L 0,5')
+    //         .attr('fill', '#ccc')
+    //         .attr('stroke','#ccc');
      
 
     force.on("tick", function(){
@@ -151,17 +322,17 @@
                                            //console.log(d)
                                            return path});       
 
-        edgelabels.attr('transform',function(d,i){
-            if (d.target.x<d.source.x){
-                bbox = this.getBBox();
-                rx = bbox.x+bbox.width/2;
-                ry = bbox.y+bbox.height/2;
-                return 'rotate(180 '+rx+' '+ry+')';
-                }
-            else {
-                return 'rotate(0)';
-                }
-        });
+        // edgelabels.attr('transform',function(d,i){
+        //     if (d.target.x<d.source.x){
+        //         bbox = this.getBBox();
+        //         rx = bbox.x+bbox.width/2;
+        //         ry = bbox.y+bbox.height/2;
+        //         return 'rotate(180 '+rx+' '+ry+')';
+        //         }
+        //     else {
+        //         return 'rotate(0)';
+        //         }
+        // });
     });
 
 </script>
