@@ -47,6 +47,11 @@ def project09():
     project = [x for x in projects if x['link'] == '/project09'][0]
     return render_template('test2.html', title='Project09', project=project)
 
+@app.route('/project10')
+def project09():
+    project = [x for x in projects if x['link'] == '/project10'][0]
+    return render_template('hw10.html', title='Project10', project=project)
+
 @app.route('/test')
 def test():
     project = [x for x in projects if x['link'] == '/test'][0]

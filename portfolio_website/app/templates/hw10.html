@@ -1,13 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
+{% extends "base.html" %}
+
+{% block content %}
 <title>Direct Exposure Relationships</title>
+<h1>Project: </h1>
+<h2>{{ project.name }}</h2>
+<div id="sketch-holder"></div>
+<p>{{ project.description }}</p>
+
 <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
-<style type="text/css">
-</style>
-</head>
-<body>
 <!-- started with this: http://bl.ocks.org/jhb/5955887 -->
 <script type="text/javascript">
 
@@ -171,24 +171,6 @@
 	function neighboring(a, b) {
 	  return linkedByIndex[a.index + "," + b.index];
 	}
- 
-	function colorNode(name){
-		//iterate through all the dom and get the DOM which has the data
-		var node = d3.selectAll(".node")[0].filter(function(d){
-			return d3.select(d).data()[0].name == name;
-		});
-		//for the matching node DOM set the fill to be red
-		d3.selectAll(node).style("fill", "red");
-	}
-
-	function colorLink(src,tgt){
-		//iterate through all the links for src and target.
-		var link = d3.selectAll(".link")[0].filter(function(d){
-			return (d3.select(d).data()[0][0].name == src && d3.select(d).data()[0][2].name == tgt);
-		});
-		//for the filtered link make the stroke red.
-		d3.selectAll(link).style("stroke", "red");
-	}
 
     var svg = d3.select("body").append("svg").attr({"width":w,"height":h});
 
@@ -336,6 +318,4 @@
     });
 
 </script>
-
-</body>
-</html>
+{% endblock %}

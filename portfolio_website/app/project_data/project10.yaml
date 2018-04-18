@@ -1,0 +1,5 @@
+name1: Force Layout Exposure Graph
+body: Showing patients that were directly exposed to eachother with an interactive D3 force layout.
+link: /project10
+name: Force Layout Exposure Graph
+description: When a patient tests positive for an infectious disease it is important to be able to find who was exposed to this patient. This chart shows relation ships and allows the user to quickly highlight the neighbors of any given node.

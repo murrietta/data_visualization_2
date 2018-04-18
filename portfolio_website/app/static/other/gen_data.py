@@ -52,4 +52,14 @@ for pat in pats.keys():
 		pats[pat].update({i: nextLoc(curLoc)})
 
 #now we have patient locations for each day
-pats
+#lets pretend pat_00 was sick but didn't get isolated, we want to determine who was ever on the same unit as pat_00 at the same time
+links = []
+rkeys = [x for x in pats.keys()]
+for key in pats.keys():
+	rkeys.remove(key)
+	for day, loc in pats[key].items():
+		for rkey in rkeys:
+			if pats[rkey].get(day, False) != False:
+				if pats[rkey][day] == loc:
+					links.append({'source': int(key.replace("pat_","")), 'target': int(key.replace("pat_",""))})
+len(links)
