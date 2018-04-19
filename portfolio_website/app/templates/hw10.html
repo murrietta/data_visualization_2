@@ -4,7 +4,7 @@
 <title>Direct Exposure Relationships</title>
 <h1>Project: </h1>
 <h2>{{ project.name }}</h2>
-<div id="sketch-holder"></div>
+<div id="sketch-holder" width='1200'></div>
 <p>{{ project.description }}</p>
 
 <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
@@ -12,7 +12,7 @@
 <script type="text/javascript">
 
     var w = 1200;
-    var h = 900;
+    var h = 800;
     var linkDistance=350;
 
     // var colors = d3.scale.category20();
@@ -233,7 +233,7 @@
        .attr({"x":function(d){return d.x;},
               "y":function(d){return d.y;},
               "class":"nodelabel",
-              "stroke":"black"})
+              "stroke":"orange"})
        .text(function(d){return d.name;});
 
     var edgepaths = svg.selectAll(".edgepath")
