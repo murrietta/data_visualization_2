@@ -3,7 +3,7 @@ from app import app
 import os
 import yaml
 
-projects = [yaml.load(open('./app/project_data/{}'.format(x))) 
+projects = [yaml.load(open('./app/project_data/{}'.format(x)), yaml.FullLoader) 
     for x in os.listdir('./app/project_data') if '.yaml' in x]
 
 @app.route('/')
