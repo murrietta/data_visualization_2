@@ -1,0 +1,44 @@
+project01:
+  {name1: Processing 3-d Refresher
+  , body: This assignment seemed to get the juices flowing again and got me thinking about creative coding again.
+  , link: /project01
+  , name: Nintendo Sales in North America and Global
+  , img_src: ['/static/img/project01.png']
+  , description: I really took my winter break serious so it was hard to come back to school, but this was a good assignment to Java quite a bit.}
+project02:
+  {name1: ASCII Art Primer
+  , body: This was all about making art using ASCII characters. It is something I've seen before but never tried. It was definitely fun to do!
+  , link: /project02
+  , name: ASCII Art Robin Williams
+  , img_src: ['/static/img/rw.jpg', '/static/img/project02.png']
+  , description: This was a hybrid project, I did some of it in python and some of it in C++. I needed to access the pixels of the image and that is really easy in Python (and not so easy to do in C++).}
+project06:
+  {name1: Simple Visualization with p5.js
+  , body: Just needed to pick something and run with it in p5.js!
+  , link: /project06
+  , name: Simple visualization with p5.js
+  , description: This is a simple visualization utilizing p5.js and javascript in general. Having a little trouble loading images in p5.js while serving with flask!}
+project07:
+  {name1: Parameterized Plinko Board
+  , body: An Interactive Visualization with p5.js
+  , link: /project07
+  , name: Parameterized Plinko Board
+  , description: A simple Plinko board using p5.js. Parameters allow the user to adjust the probability of going right at each pin, how many rows of pins, and how many marbles to use.}
+project08:
+  {name1: d3 project
+  , body: Reproducing an old project with d3
+  , link: /project08
+  , name: Role playing game global sales
+  , description: Used the video game sales data again but this time focused on the role playing genre, how two companies became one, and how the industry changed.}
+project09:
+  {name1: ASD Friendly Sites Rating
+  , body: Dashboard of ASD friendliness rating of sites.
+  , link: /project09
+  , name: ASD Friendly Sites Rating
+  , description: Our capstone work developed a method of scoring a website regarding ASD friendliness. Higher scores mean more unfriendly. This is a dashboard visualization of the top 25 (the 25 websites with the highest/least friendly ASD ratings).}
+project10:
+  {name1: Force Layout Exposure Graph
+  , body: Showing patients that were directly exposed to eachother with an interactive D3 force layout.
+  , link: /project10
+  , name: Force Layout Exposure Graph
+  , description: When a patient tests positive for an infectious disease it is important to be able to find who was exposed to this patient. This chart shows relation ships and allows the user to quickly highlight the neighbors of any given node.}
